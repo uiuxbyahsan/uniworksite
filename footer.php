@@ -39,7 +39,7 @@ $checkout_url = function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url()
 			<div class="footer-col">
 				<h4>Company</h4>
 				<ul>
-					<li><a href="<?php echo esc_url( home_url( '/#about' ) ); ?>">About Us</a></li>
+					<li><a href="<?php echo esc_url( ( $ut_f_about = get_page_by_path( 'about-us' ) ) ? get_permalink( $ut_f_about ) : home_url( '/#about' ) ); ?>">About Us</a></li>
 					<li><a href="<?php echo esc_url( home_url( '/#testimonials' ) ); ?>">Partners</a></li>
 					<li><a href="<?php echo esc_url( $shop ); ?>">Catalog</a></li>
 					<li><a href="<?php echo esc_url( $contact_url ); ?>">Contact</a></li>
@@ -114,8 +114,15 @@ $checkout_url = function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url()
 				$link = $term ? get_term_link( $term ) : $shop; ?>
 				<a href="<?php echo esc_url( $link ); ?>" data-close><?php echo esc_html( $data[0] ); ?></a>
 			<?php endforeach; ?>
-			<a href="<?php echo esc_url( home_url( '/#about' ) ); ?>" data-close>About</a>
-			<a href="<?php echo esc_url( home_url( '/#contact' ) ); ?>" data-close>Contact</a>
+			<?php
+			$ut_m_about   = get_page_by_path( 'about-us' );
+			$ut_m_contact = get_page_by_path( 'contact' );
+			$ut_m_track   = get_page_by_path( 'track-order' );
+			if ( ! is_user_logged_in() && $ut_m_track ) : ?>
+				<a href="<?php echo esc_url( get_permalink( $ut_m_track ) ); ?>" data-close>Track Order</a>
+			<?php endif; ?>
+			<a href="<?php echo esc_url( $ut_m_about ? get_permalink( $ut_m_about ) : home_url( '/#about' ) ); ?>" data-close>About</a>
+			<a href="<?php echo esc_url( $ut_m_contact ? get_permalink( $ut_m_contact ) : home_url( '/#contact' ) ); ?>" data-close>Contact Us</a>
 		</nav>
 		<div class="mp-actions">
 			<a href="#" class="btn btn-primary ut-drawer-open" data-close>Request a Quote</a>
