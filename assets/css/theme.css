@@ -283,8 +283,12 @@ html{height:auto!important}
 .footer-bar .legal a:hover{color:var(--navy)}
 
 /* ============ BREADCRUMB ============ */
-.ut-breadcrumb{background:transparent;border-bottom:0;font-size:13.5px}
-.ut-breadcrumb .container{display:flex;align-items:center;gap:6px;padding-block:20px 2px;flex-wrap:wrap}
+/* Breadcrumb bar — sticky directly beneath the sticky navbar */
+.ut-breadcrumb{position:-webkit-sticky;position:sticky;top:var(--header-h,72px);z-index:59;background:#fff;border-bottom:1px solid var(--line);font-size:13.5px}
+.ut-breadcrumb .container{display:flex;align-items:center;gap:6px;padding-block:11px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.ut-breadcrumb .container::-webkit-scrollbar{display:none}
+.ut-breadcrumb a,.ut-breadcrumb span[aria-current]{white-space:nowrap}
+@media(max-width:600px){.ut-breadcrumb .container{padding-block:9px}.ut-breadcrumb{font-size:13px}}
 .ut-breadcrumb a{color:var(--muted);font-weight:400}
 .ut-breadcrumb a:hover{color:var(--orange-600)}
 .ut-breadcrumb span[aria-current]{color:var(--navy);font-weight:500}

@@ -5,12 +5,20 @@
 
   document.addEventListener("DOMContentLoaded", function () {
 
-    /* ---- sticky header ---- */
+    /* ---- sticky header + breadcrumb offset ---- */
     var header = document.getElementById("header");
     if (header) {
       var onScroll = function () { header.classList.toggle("scrolled", window.scrollY > 8); };
       window.addEventListener("scroll", onScroll, { passive: true });
       onScroll();
+      // keep the sticky breadcrumb pinned exactly beneath the navbar at any breakpoint
+      var setHeaderH = function () {
+        document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+      };
+      setHeaderH();
+      window.addEventListener("load", setHeaderH);
+      window.addEventListener("resize", setHeaderH);
+      if (window.ResizeObserver) { new ResizeObserver(setHeaderH).observe(header); }
     }
 
     /* ---- hero carousel (dots + autoplay) ---- */
